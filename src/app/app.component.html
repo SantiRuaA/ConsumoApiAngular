@@ -1,1 +1,19 @@
-<h1 
+<h1>Api star routing</h1>
+
+<form (ngSubmit)="saveRol()">
+  <div>
+    <label for="idRol">ID Rol:</label>
+    <input type="number" id="idRol" name="idRol" [(ngModel)]="rol.idRol" required>
+  </div>
+  <div>
+    <label for="nombreRol">Nombre Rol:</label>
+    <input type="text" id="nombreRol" name="nombreRol" [(ngModel)]="rol.nombreRol" required>
+  </div>
+  <div>
+    <label for="descripcionRol">Descripción Rol:</label>
+    <input type="text" id="descripcionRol" name="descripcionRol" [(ngModel)]="rol.descripcionRol" required>
+  </div>
+  <button type="submit">Agregar Rol</button>
+</form>
+
+
