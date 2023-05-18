@@ -26,8 +26,9 @@ export class StarRoutingService {
 }
 
 export interface RolesResponse {
-  roles: Rol[]
+  Roles: Rol[]; // Cambiar 'roles' por 'Roles'
 }
+
 
 export interface Rol {
   idRol: number,

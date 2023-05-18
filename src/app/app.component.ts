@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Rol, RolesResponse, StarRoutingService,  } from './star-routing.service';
+import { Rol, RolesResponse, StarRoutingService } from './star-routing.service';
 
 @Component({
   selector: 'app-root',
@@ -8,27 +8,39 @@ import { Rol, RolesResponse, StarRoutingService,  } from './star-routing.service
 })
 export class AppComponent {
   title = 'ConsumoApiStarRouting';
-  rol:Rol = {idRol:0, nombreRol:"", descripcionRol:""};
-  roles:Rol[] = []
+  rol: Rol = { idRol: 0, nombreRol: '', descripcionRol: '' };
+  roles: Rol[] = [];
 
-  constructor(private starRoutingService:StarRoutingService){
-    this.starRoutingService.getRoles()
-      .subscribe((data: RolesResponse)=>{
-          this.roles = data.roles
-    })
+  constructor(private starRoutingService: StarRoutingService) { }
 
+  ngOnInit() {
+    this.getRoles();
   }
+
+  getRoles() {
+    console.log("Llamando al método getRoles() del servicio...");
+    this.starRoutingService.getRoles().subscribe(
+      (data: RolesResponse) => {
+        console.log('Respuesta de la API:', data);
+        this.roles = data.Roles;
+      },
+      error => {
+        console.log('Error al obtener los roles:', error);
+      }
+    );
+  }
+
+
   saveRol() {
-    this.starRoutingService.postRoles(this.rol)
-      .subscribe((data: any) => {
+    this.starRoutingService.postRoles(this.rol).subscribe(
+      (data: any) => {
         console.log('El rol se ha agregado correctamente:', data);
         this.roles.push(this.rol); // Agrega el nuevo rol a la lista
-        this.rol = {idRol: 0, nombreRol: '', descripcionRol: ''}; // Limpia los campos del formulario
-      }, error => {
+        this.rol = { idRol: 0, nombreRol: '', descripcionRol: '' }; // Limpia los campos del formulario
+      },
+      error => {
         console.log('Error al agregar el rol:', error);
-      });
+      }
+    );
   }
-  
-
-
 }
