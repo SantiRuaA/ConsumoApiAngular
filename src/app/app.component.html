@@ -19,13 +19,35 @@
   <ng-container matColumnDef="acciones">
     <th mat-header-cell *matHeaderCellDef>Acciones</th>
     <td mat-cell *matCellDef="let role">
+      <button mat-button color="primary" (click)="editarRol(role)">Editar</button>
       <button mat-button color="warn" (click)="eliminarRoles(role.idRol)">Eliminar</button>
     </td>
   </ng-container>
 
+
   <tr mat-header-row *matHeaderRowDef="['idRol', 'nombreRol', 'descripcionRol', 'acciones']"></tr>
   <tr mat-row *matRowDef="let row; columns: ['idRol', 'nombreRol', 'descripcionRol', 'acciones']"></tr>
 </table>
+
+<div class="modal" *ngIf="mostrarFormularioEdicion">
+  <form (ngSubmit)="guardarEdicionRol()">
+    <div>
+      <label for="idRol">ID Rol:</label>
+      <input type="number" id="idRol" name="idRol" [(ngModel)]="rolSeleccionado.idRol" required>
+    </div>
+    <div>
+      <label for="nombreRol">Nombre Rol:</label>
+      <input type="text" id="nombreRol" name="nombreRol" [(ngModel)]="rolSeleccionado.nombreRol" required>
+    </div>
+    <div>
+      <label for="descripcionRol">Descripción Rol:</label>
+      <input type="text" id="descripcionRol" name="descripcionRol" [(ngModel)]="rolSeleccionado.descripcionRol"
+        required>
+    </div>
+    <button type="submit">Guardar</button>
+    <button (click)="cerrarFormularioEdicion()">Cancelar</button>
+  </form>
+</div>
 
 <form (ngSubmit)="saveRol()">
   <div>

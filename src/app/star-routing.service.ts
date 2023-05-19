@@ -29,7 +29,8 @@ export class StarRoutingService {
   }
 
   updateRoles(data: Rol) {
-    return this.http.put("http://localhost:3030/rol", data)
+    const url = `http://localhost:3030/rol/${data.idRol}`;
+    return this.http.put(url, data);
   }
 }
 
