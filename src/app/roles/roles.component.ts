@@ -63,6 +63,7 @@ export class RolesComponent {
         // Realiza cualquier otra acción que desees después de actualizar el rol
         // Por ejemplo, cierra el formulario de edición o muestra una notificación de éxito
         this.mostrarFormularioEdicion = false;
+        this.getRoles();
       },
       error => {
         console.log('Error al actualizar el rol:', error);
