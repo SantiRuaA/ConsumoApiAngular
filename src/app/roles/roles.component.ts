@@ -10,6 +10,8 @@ export class RolesComponent {
   title = 'ConsumoApiStarRouting';
   rol: Rol = { idRol: 0, nombreRol: '', descripcionRol: '' };
   roles: Rol[] = [];
+  rolSeleccionado: Rol = { idRol: 0, nombreRol: '', descripcionRol: '' };
+  mostrarFormularioEdicion = false;
 
   constructor(private starRoutingService: StarRoutingService) { }
 
@@ -42,6 +44,34 @@ export class RolesComponent {
         console.log('Error al agregar el rol:', error);
       }
     );
+  }
+
+  editarRol(rol: Rol) {
+    this.rolSeleccionado = { ...rol }; // Copia los valores del rol seleccionado
+
+    // Abre el formulario de edición (en este caso, mostrando un modal)
+    this.mostrarFormularioEdicion = true;
+  }
+
+  guardarEdicionRol() {
+    // Realiza las operaciones necesarias para guardar la edición del rol
+    // Puedes utilizar this.rolSeleccionado para acceder a los valores editados del rol
+
+    this.starRoutingService.updateRoles(this.rolSeleccionado).subscribe(
+      (data: any) => {
+        console.log('El rol se ha actualizado correctamente:', data);
+        // Realiza cualquier otra acción que desees después de actualizar el rol
+        // Por ejemplo, cierra el formulario de edición o muestra una notificación de éxito
+        this.mostrarFormularioEdicion = false;
+      },
+      error => {
+        console.log('Error al actualizar el rol:', error);
+      }
+    );
+  }
+
+  cerrarFormularioEdicion() {
+    this.mostrarFormularioEdicion = false;
   }
 
   eliminarRoles(idRol: number) {
