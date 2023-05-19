@@ -1,5 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
+import { throwError } from 'rxjs/internal/observable/throwError';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class StarRoutingService {
@@ -16,8 +19,13 @@ export class StarRoutingService {
     return this.http.post("http://localhost:3030/rol", data)
   }
 
-  deleteRoles() {
-    return this.http.delete("http://localhost:3030/rol")
+  deleteRoles(idRol: number): Observable<any> {
+    const url = `http://localhost:3030/rol/${idRol}`;
+    return this.http.delete(url).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(error);
+      })
+    );
   }
 
   updateRoles(data: Rol) {

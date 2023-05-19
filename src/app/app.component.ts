@@ -43,4 +43,20 @@ export class AppComponent {
       }
     );
   }
+
+  eliminarRoles(idRol: number) {
+    console.log("Llamando al método eliminarRoles() del servicio...");
+    this.starRoutingService.deleteRoles(idRol).subscribe(
+      () => {
+        console.log('El rol se ha eliminado correctamente');
+        // Realiza cualquier otra acción que desees después de eliminar el rol
+      },
+      error => {
+        console.log('Error al eliminar el rol:', error);
+      }
+    );
+  }
+
+
+
 }
