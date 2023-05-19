@@ -31,6 +31,16 @@ export class StarRoutingService {
   updateRoles(data: Rol) {
     return this.http.put("http://localhost:3030/rol", data)
   }
+
+  login(username: string, password: string): Observable<any> {
+    const data = { username, password };
+    return this.http.post("http://localhost:3030/login", data).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(error);
+      })
+    );
+  }
+  
 }
 
 export interface RolesResponse {

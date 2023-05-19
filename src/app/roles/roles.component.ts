@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Rol, RolesResponse, StarRoutingService } from './star-routing.service';
+import { Rol, RolesResponse, StarRoutingService } from '../star-routing.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class RolesComponent {
   title = 'ConsumoApiStarRouting';
   rol: Rol = { idRol: 0, nombreRol: '', descripcionRol: '' };
   roles: Rol[] = [];
