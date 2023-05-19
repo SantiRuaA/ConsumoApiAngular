@@ -8,10 +8,11 @@ import { Rol, RolesResponse, StarRoutingService } from '../star-routing.service'
 })
 export class RolesComponent {
   title = 'ConsumoApiStarRouting';
-  rol: Rol = { idRol: 0, nombreRol: '', descripcionRol: '' };
   roles: Rol[] = [];
+  nuevoRol: Rol = { idRol: 0, nombreRol: '', descripcionRol: '' };
   rolSeleccionado: Rol = { idRol: 0, nombreRol: '', descripcionRol: '' };
   mostrarFormularioEdicion = false;
+  mostrarFormularioAgregar = false;
 
   constructor(private starRoutingService: StarRoutingService) { }
 
@@ -32,13 +33,28 @@ export class RolesComponent {
     );
   }
 
-  saveRol() {
-    this.starRoutingService.postRoles(this.rol).subscribe(
+
+  editarRol(rol: Rol) {
+    this.rolSeleccionado = { ...rol }; // Copia los valores del rol seleccionado
+    this.mostrarFormularioEdicion = true; // Abre el formulario de edición
+  }
+
+  abrirFormularioAgregar() {
+    this.mostrarFormularioAgregar = true;
+  }
+
+  cerrarFormularioAgregar() {
+    this.mostrarFormularioAgregar = false;
+    this.nuevoRol = { idRol: 0, nombreRol: '', descripcionRol: '' };
+  }
+
+  agregarRol() {
+    this.starRoutingService.postRoles(this.nuevoRol).subscribe(
       (data: any) => {
         console.log('El rol se ha agregado correctamente:', data);
-        this.roles.push(this.rol); // Agrega el nuevo rol a la lista
-        this.rol = { idRol: 0, nombreRol: '', descripcionRol: '' }; // Limpia los campos del formulario
-        this.getRoles(); // Realiza un nuevo GET para actualizar la lista de roles
+        this.roles.push(this.nuevoRol); // Agrega el nuevo rol a la lista
+        this.cerrarFormularioAgregar(); // Cierra el formulario de agregar
+        this.getRoles();
       },
       error => {
         console.log('Error al agregar el rol:', error);
@@ -46,24 +62,12 @@ export class RolesComponent {
     );
   }
 
-  editarRol(rol: Rol) {
-    this.rolSeleccionado = { ...rol }; // Copia los valores del rol seleccionado
-
-    // Abre el formulario de edición (en este caso, mostrando un modal)
-    this.mostrarFormularioEdicion = true;
-  }
-
   guardarEdicionRol() {
-    // Realiza las operaciones necesarias para guardar la edición del rol
-    // Puedes utilizar this.rolSeleccionado para acceder a los valores editados del rol
-
     this.starRoutingService.updateRoles(this.rolSeleccionado).subscribe(
       (data: any) => {
         console.log('El rol se ha actualizado correctamente:', data);
-        // Realiza cualquier otra acción que desees después de actualizar el rol
-        // Por ejemplo, cierra el formulario de edición o muestra una notificación de éxito
-        this.mostrarFormularioEdicion = false;
-        this.getRoles();
+        this.mostrarFormularioEdicion = false; // Cierra el formulario de edición
+        this.getRoles(); // Actualiza la lista de roles
       },
       error => {
         console.log('Error al actualizar el rol:', error);
@@ -72,7 +76,7 @@ export class RolesComponent {
   }
 
   cerrarFormularioEdicion() {
-    this.mostrarFormularioEdicion = false;
+    this.mostrarFormularioEdicion = false; // Cierra el formulario de edición
   }
 
   eliminarRoles(idRol: number) {
@@ -80,13 +84,14 @@ export class RolesComponent {
     this.starRoutingService.deleteRoles(idRol).subscribe(
       () => {
         console.log('El rol se ha eliminado correctamente');
-        this.getRoles(); // Realiza un nuevo GET para actualizar la lista de roles
+        this.getRoles(); // Actualiza la lista de roles
       },
       error => {
         console.log('Error al eliminar el rol:', error);
       }
     );
   }
+
 
   login() {
     const username = "correUsuario"; // Reemplaza con el valor real del campo de nombre de usuario

@@ -1,65 +1,68 @@
 <table mat-table [dataSource]="roles" class="mat-elevation-z8">
-    <ng-container matColumnDef="idRol">
-      <th mat-header-cell *matHeaderCellDef>ID Rol</th>
-      <td mat-cell *matCellDef="let role">{{ role.idRol }}</td>
-    </ng-container>
-  
-    <ng-container matColumnDef="nombreRol">
-      <th mat-header-cell *matHeaderCellDef>Nombre Rol</th>
-      <td mat-cell *matCellDef="let role">{{ role.nombreRol }}</td>
-    </ng-container>
-  
-    <ng-container matColumnDef="descripcionRol">
-      <th mat-header-cell *matHeaderCellDef>Descripción Rol</th>
-      <td mat-cell *matCellDef="let role">{{ role.descripcionRol }}</td>
-    </ng-container>
-  
-    <ng-container matColumnDef="acciones">
-      <th mat-header-cell *matHeaderCellDef>Acciones</th>
-      <td mat-cell *matCellDef="let role">
-        <button mat-button color="primary" (click)="editarRol(role)">Editar</button>
-        <button mat-button color="warn" (click)="eliminarRoles(role.idRol)">Eliminar</button>
-      </td>
-    </ng-container>
-  
-  
-    <tr mat-header-row *matHeaderRowDef="['idRol', 'nombreRol', 'descripcionRol', 'acciones']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['idRol', 'nombreRol', 'descripcionRol', 'acciones']"></tr>
-  </table>
-  
-  <div class="modal" *ngIf="mostrarFormularioEdicion">
-    <form (ngSubmit)="guardarEdicionRol()">
-      <div>
-        <label for="idRol">ID Rol:</label>
-        <input type="number" id="idRol" name="idRol" [(ngModel)]="rolSeleccionado.idRol" required>
-      </div>
-      <div>
-        <label for="nombreRol">Nombre Rol:</label>
-        <input type="text" id="nombreRol" name="nombreRol" [(ngModel)]="rolSeleccionado.nombreRol" required>
-      </div>
-      <div>
-        <label for="descripcionRol">Descripción Rol:</label>
-        <input type="text" id="descripcionRol" name="descripcionRol" [(ngModel)]="rolSeleccionado.descripcionRol"
-          required>
-      </div>
-      <button type="submit">Guardar</button>
-      <button (click)="cerrarFormularioEdicion()">Cancelar</button>
-    </form>
-  </div>
-  
-  <form (ngSubmit)="saveRol()">
+  <ng-container matColumnDef="idRol">
+    <th mat-header-cell *matHeaderCellDef>ID Rol</th>
+    <td mat-cell *matCellDef="let role">{{ role.idRol }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="nombreRol">
+    <th mat-header-cell *matHeaderCellDef>Nombre Rol</th>
+    <td mat-cell *matCellDef="let role">{{ role.nombreRol }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="descripcionRol">
+    <th mat-header-cell *matHeaderCellDef>Descripción Rol</th>
+    <td mat-cell *matCellDef="let role">{{ role.descripcionRol }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+    <td mat-cell *matCellDef="let role">
+      <button mat-button color="primary" (click)="editarRol(role)">Editar</button>
+      <button mat-button color="warn" (click)="eliminarRoles(role.idRol)">Eliminar</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['idRol', 'nombreRol', 'descripcionRol', 'acciones']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['idRol', 'nombreRol', 'descripcionRol', 'acciones']"></tr>
+</table>
+
+<div class="modal" *ngIf="mostrarFormularioEdicion">
+  <form (ngSubmit)="guardarEdicionRol()">
     <div>
       <label for="idRol">ID Rol:</label>
-      <input type="number" id="idRol" name="idRol" [(ngModel)]="rol.idRol" required>
+      <input type="number" id="idRol" name="idRol" [(ngModel)]="rolSeleccionado.idRol" required>
     </div>
     <div>
       <label for="nombreRol">Nombre Rol:</label>
-      <input type="text" id="nombreRol" name="nombreRol" [(ngModel)]="rol.nombreRol" required>
+      <input type="text" id="nombreRol" name="nombreRol" [(ngModel)]="rolSeleccionado.nombreRol" required>
     </div>
     <div>
       <label for="descripcionRol">Descripción Rol:</label>
-      <input type="text" id="descripcionRol" name="descripcionRol" [(ngModel)]="rol.descripcionRol" required>
+      <input type="text" id="descripcionRol" name="descripcionRol" [(ngModel)]="rolSeleccionado.descripcionRol"
+        required>
     </div>
-    <button type="submit">Agregar Rol</button>
+    <button type="submit">Guardar</button>
+    <button (click)="cerrarFormularioEdicion()">Cancelar</button>
   </form>
-  
+</div>
+
+<div class="modal" *ngIf="mostrarFormularioAgregar">
+  <form (ngSubmit)="agregarRol()">
+    <div>
+      <label for="idRol">ID Rol:</label>
+      <input type="number" id="idRol" name="idRol" [(ngModel)]="nuevoRol.idRol" required>
+    </div>
+    <div>
+      <label for="nombreRol">Nombre Rol:</label>
+      <input type="text" id="nombreRol" name="nombreRol" [(ngModel)]="nuevoRol.nombreRol" required>
+    </div>
+    <div>
+      <label for="descripcionRol">Descripción Rol:</label>
+      <input type="text" id="descripcionRol" name="descripcionRol" [(ngModel)]="nuevoRol.descripcionRol" required>
+    </div>
+    <button type="submit">Guardar</button>
+    <button type="button" (click)="cerrarFormularioAgregar()">Cancelar</button>
+  </form>
+</div>
+
+<button mat-button color="primary" (click)="abrirFormularioAgregar()">Agregar Rol</button>
