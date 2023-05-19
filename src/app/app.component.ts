@@ -30,13 +30,13 @@ export class AppComponent {
     );
   }
 
-
   saveRol() {
     this.starRoutingService.postRoles(this.rol).subscribe(
       (data: any) => {
         console.log('El rol se ha agregado correctamente:', data);
         this.roles.push(this.rol); // Agrega el nuevo rol a la lista
         this.rol = { idRol: 0, nombreRol: '', descripcionRol: '' }; // Limpia los campos del formulario
+        this.getRoles(); // Realiza un nuevo GET para actualizar la lista de roles
       },
       error => {
         console.log('Error al agregar el rol:', error);
@@ -49,14 +49,11 @@ export class AppComponent {
     this.starRoutingService.deleteRoles(idRol).subscribe(
       () => {
         console.log('El rol se ha eliminado correctamente');
-        // Realiza cualquier otra acción que desees después de eliminar el rol
+        this.getRoles(); // Realiza un nuevo GET para actualizar la lista de roles
       },
       error => {
         console.log('Error al eliminar el rol:', error);
       }
     );
   }
-
-
-
 }
