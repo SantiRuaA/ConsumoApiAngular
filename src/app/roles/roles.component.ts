@@ -3,8 +3,8 @@ import { Rol, RolesResponse, StarRoutingService } from '../star-routing.service'
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  templateUrl: './roles.component.html',
+  styleUrls: ['./roles.component.scss'],
 })
 export class RolesComponent {
   title = 'ConsumoApiStarRouting';
